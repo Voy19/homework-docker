@@ -13,7 +13,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  docker:
+  build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -44,18 +44,16 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-  deploy:
-      runs-on: ubuntu-latest
-      steps:
-        - name: executing remote ssh commands using password
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.SERVER_HOST }}
-            username: ${{ secrets.SERVER_USERNAME }}
-            password: ${{ secrets.SERVER_PASSWORD }}
-            script: |
-              docker stop -p ${{ secrets.SERVER_USERNAME }}
-              docker rm -p ${{ secrets.SERVER_USERNAME }}
-              docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/homework-docker:latest
-              docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.SERVER_PORT }} -d --name=${{ secrets.SERVER_USERNAME }} ${{ secrets.DOCKER_HUB_USERNAME }}/homework-docker:latest
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            docker stop -p ${{ secrets.SERVER_USERNAME }}
+            docker rm -p ${{ secrets.SERVER_USERNAME }}
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/homework-docker:latest
+            docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.SERVER_PORT }} -d --name=${{ secrets.SERVER_USERNAME }} ${{ secrets.DOCKER_HUB_USERNAME }}/homework-docker:latest
               
