@@ -53,10 +53,9 @@ jobs:
             host: ${{ secrets.SERVER_HOST }}
             username: ${{ secrets.SERVER_USERNAME }}
             password: ${{ secrets.SERVER_PASSWORD }}
-            port: ${{ secrets.SERVER_PORT }}
             script: |
-              docker stop -p 'voitov'
-              docker rm -p 'voitov'
+              docker stop -p ${{ secrets.SERVER_USERNAME }}
+              docker rm -p ${{ secrets.SERVER_USERNAME }}
               docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/homework-docker:latest
-              docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.SERVER_PORT }} -d --name='voitov' ${{ secrets.DOCKER_HUB_USERNAME }}/homework-docker:latest
+              docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.SERVER_PORT }} -d --name=${{ secrets.SERVER_USERNAME }} ${{ secrets.DOCKER_HUB_USERNAME }}/homework-docker:latest
               
