@@ -1,5 +1,6 @@
 {
   "name": "homework-docker",
+  "homepage": "http://173.82.227.13/voitov",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
