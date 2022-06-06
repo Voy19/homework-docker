@@ -15,11 +15,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i
-    - name: TestCoverage
-      id: testCoverage
-      uses: anuraag016/Jest-Coverage-Diff@master
-      with:
-        fullCoverageDiff: false // defaults to false, if made true whole coverage report is commented with the diff
-        runCommand: "npx jest --collectCoverageFrom='[\"src/**/*.{js,jsx,ts,tsx}\"]' --coverage --collectCoverage=true --coverageDirectory='./' --coverageReporters='json-summary' --forceExit --detectOpenHandles test/.*test.*"
-        delta: 0.5
+      - name: Comment with Test Coverage
+        uses: dkershner6/jest-coverage-commenter-action@v1
+        with:
+          test_command: "npm run test:coverage"
     - run: npm test
