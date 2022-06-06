@@ -16,7 +16,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm i
     - uses: actions/checkout@v1
-    - uses: artiomtr/jest-coverage-report-action@v2
-      with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
     - run: npm test
