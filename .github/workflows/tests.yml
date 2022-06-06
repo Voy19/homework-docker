@@ -15,8 +15,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i
-    - name: Comment with Test Coverage
-      uses: dkershner6/jest-coverage-commenter-action@v1
+    - uses: actions/checkout@v1
+    - uses: artiomtr/jest-coverage-report-action@v2
       with:
-        test_command: "npm run test:coverage"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
     - run: npm test
