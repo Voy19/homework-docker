@@ -15,8 +15,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i
-      - name: Comment with Test Coverage
-        uses: dkershner6/jest-coverage-commenter-action@v1
-        with:
-          test_command: "npm run test:coverage"
+    - name: Comment with Test Coverage
+      uses: dkershner6/jest-coverage-commenter-action@v1
+      with:
+        test_command: "npm run test:coverage"
     - run: npm test
