@@ -11,6 +11,8 @@ jobs:
       matrix:
         node-version: [12.x, 14.x, 16.x, 18.x]
     steps:
+    - name: Setup npm packages
+      run: npm install
     - uses: actions/checkout@v3
     - name: Test using Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
